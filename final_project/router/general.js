@@ -94,4 +94,15 @@ public_users.get('/async/books', async function (req, res) {
   }
 });
 
+// Task 11: Get book details based on ISBN using async-await with Axios
+public_users.get('/async/isbn/:isbn', async function (req, res) {
+  try {
+    const response = await axios.get(`http://localhost:5000/isbn/${req.params.isbn}`);
+    return res.send(JSON.stringify(response.data, null, 4));
+  } catch (error) {
+    const status = error.response ? error.response.status : 500;
+    return res.status(status).json({message: "Error fetching book by ISBN"});
+  }
+});
+
 module.exports.general = public_users;
